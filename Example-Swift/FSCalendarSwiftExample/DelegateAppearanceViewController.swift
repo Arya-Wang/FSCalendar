@@ -58,6 +58,7 @@ class DelegateAppearanceViewController: UIViewController, FSCalendarDataSource, 
         
         // For UITest
         self.calendar.accessibilityIdentifier = "calendar"
+        print("的点点滴滴")
     }
     
     deinit {
@@ -86,6 +87,15 @@ class DelegateAppearanceViewController: UIViewController, FSCalendarDataSource, 
             return [UIColor.magenta, appearance.eventDefaultColor, UIColor.black]
         }
         return nil
+    }
+   
+    func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, eventDefaultBorderColorsFor date: Date) -> [UIColor]? {
+        let key = self.dateFormatter2.string(from: date)
+        if self.datesWithMultipleEvents.contains(key) {
+            return [UIColor.yellow, UIColor.systemPink, UIColor.yellow];
+        }
+        return [UIColor.cyan];
+
     }
     
     func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, fillSelectionColorFor date: Date) -> UIColor? {

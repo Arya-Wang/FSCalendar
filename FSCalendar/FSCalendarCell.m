@@ -19,6 +19,7 @@
 @property (readonly, nonatomic) UIColor *colorForSubtitleLabel;
 @property (readonly, nonatomic) UIColor *colorForCellBorder;
 @property (readonly, nonatomic) NSArray<UIColor *> *colorsForEvents;
+@property (readonly, nonatomic) NSArray<UIColor *> *borderColorsForEvents;
 @property (readonly, nonatomic) CGFloat borderRadius;
 
 @end
@@ -144,12 +145,12 @@
         _shapeLayer.path = path;
     }
     
-    CGFloat eventSize = _shapeLayer.frame.size.height/6.0;
+    CGFloat eventSize = 6.0;
     _eventIndicator.frame = CGRectMake(
                                        self.preferredEventOffset.x,
-                                       CGRectGetMaxY(_shapeLayer.frame)+eventSize*0.17+self.preferredEventOffset.y,
+                                       CGRectGetMaxY(_shapeLayer.frame)+ 3 +self.preferredEventOffset.y,
                                        self.fs_width,
-                                       eventSize*0.83
+                                       eventSize
                                       );
     
 }
@@ -249,7 +250,7 @@
     
     _eventIndicator.numberOfEvents = self.numberOfEvents;
     _eventIndicator.color = self.colorsForEvents;
-
+    _eventIndicator.borderColor = self.borderColorsForEvents;
 }
 
 - (UIColor *)colorForCurrentStateInDictionary:(NSDictionary *)dictionary
@@ -312,6 +313,10 @@
         return _preferredEventSelectionColors ?: @[_appearance.eventSelectionColor];
     }
     return _preferredEventDefaultColors ?: @[_appearance.eventDefaultColor];
+}
+
+- (NSArray<UIColor *> *)borderColorsForEvents {
+    return _preferredEventBorderColors;
 }
 
 - (CGFloat)borderRadius
@@ -412,12 +417,12 @@ OFFSET_PROPERTY(preferredEventOffset, PreferredEventOffset, _appearance.eventOff
     [super layoutSublayersOfLayer:layer];
     if (layer == self.layer) {
         
-        CGFloat diameter = MIN(MIN(self.fs_width, self.fs_height),FSCalendarMaximumEventDotDiameter);
+        CGFloat diameter = 6.0;
         for (int i = 0; i < self.eventLayers.count; i++) {
             CALayer *eventLayer = [self.eventLayers pointerAtIndex:i];
             eventLayer.hidden = i >= self.numberOfEvents;
             if (!eventLayer.hidden) {
-                eventLayer.frame = CGRectMake(2*i*diameter, (self.fs_height-diameter)*0.5, diameter, diameter);
+                eventLayer.frame = CGRectMake(2*i*diameter, 0 , diameter, diameter);
                 if (eventLayer.cornerRadius != diameter/2) {
                     eventLayer.cornerRadius = diameter/2;
                 }
@@ -444,6 +449,27 @@ OFFSET_PROPERTY(preferredEventOffset, PreferredEventOffset, _appearance.eventOff
             }
         }
         
+    }
+}
+
+- (void)setBorderColor:(id)borderColor {
+    if (![_borderColor isEqual:borderColor]) {
+        _borderColor = borderColor;
+        
+        if ([_borderColor isKindOfClass:[UIColor class]]) {
+            for (NSInteger i = 0; i < self.eventLayers.count; i++) {
+                CALayer *layer = [self.eventLayers pointerAtIndex:i];
+                layer.borderColor =  [_borderColor CGColor];
+                layer.borderWidth = 1.0;
+            }
+        } else if ([_borderColor isKindOfClass:[NSArray class]]) {
+            NSArray<UIColor *> *borderColor = (NSArray *)_borderColor;
+            for (int i = 0; i < self.eventLayers.count; i++) {
+                CALayer *eventLayer = [self.eventLayers pointerAtIndex:i];
+                eventLayer.borderColor = borderColor[MIN(i,borderColor.count-1)].CGColor;
+                eventLayer.borderWidth = 1.0;
+            }
+        }
     }
 }
 

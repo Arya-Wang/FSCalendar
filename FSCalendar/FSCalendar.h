@@ -193,6 +193,10 @@ NS_ASSUME_NONNULL_BEGIN
  * Asks the delegate for event colors for the specific date.
  */
 - (nullable NSArray<UIColor *> *)calendar:(FSCalendar *)calendar appearance:(FSCalendarAppearance *)appearance eventDefaultColorsForDate:(NSDate *)date;
+/**
+ * Asks the delegate for event border colors for the specific date.
+ */
+- (nullable NSArray<UIColor *> *)calendar:(FSCalendar *)calendar appearance:(FSCalendarAppearance *)appearance eventDefaultBorderColorsForDate:(NSDate *)date;
 
 /**
  * Asks the delegate for multiple event colors in selected state for the specific date.

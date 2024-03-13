@@ -77,6 +77,7 @@ typedef NS_ENUM(NSUInteger, FSCalendarMonthPosition);
 
 @property (strong, nonatomic) NSArray<UIColor *> *preferredEventDefaultColors;
 @property (strong, nonatomic) NSArray<UIColor *> *preferredEventSelectionColors;
+@property (strong, nonatomic) NSArray<UIColor *> *preferredEventBorderColors;
 @property (assign, nonatomic) CGFloat preferredBorderRadius;
 
 // Add subviews to self.contentView and set up constraints
@@ -96,6 +97,7 @@ typedef NS_ENUM(NSUInteger, FSCalendarMonthPosition);
 
 @property (assign, nonatomic) NSInteger numberOfEvents;
 @property (strong, nonatomic) id color;
+@property (strong, nonatomic) id borderColor;
 
 @end
 
