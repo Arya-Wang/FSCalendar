@@ -78,6 +78,7 @@ static inline void FSCalendarSliceCake(CGFloat cake, NSInteger count, CGFloat *p
         NSInteger remains = count - i;
         CGFloat piece = FSCalendarRound(total/remains*2)*0.5;
         total -= piece;
+        
         pieces[i] = piece;
     }
 }
