@@ -30,6 +30,9 @@ class InterfaceBuilderViewController: UIViewController, FSCalendarDataSource, FS
                 self.calendar.appearance.headerTitleColor = UIColor(red: 14/255.0, green: 69/255.0, blue: 221/255.0, alpha: 1.0)
                 self.calendar.appearance.eventDefaultColor = UIColor(red: 31/255.0, green: 119/255.0, blue: 219/255.0, alpha: 1.0)
                 self.calendar.appearance.selectionColor = UIColor(red: 31/255.0, green: 119/255.0, blue: 219/255.0, alpha: 1.0)
+                
+                self.calendar.appearance.weekendTextColor = UIColor.black;
+
                 self.calendar.appearance.headerDateFormat = "MMMM yyyy"
                 self.calendar.appearance.todayColor = UIColor(red: 198/255.0, green: 51/255.0, blue: 42/255.0, alpha: 1.0)
                 self.calendar.appearance.borderRadius = 1.0
