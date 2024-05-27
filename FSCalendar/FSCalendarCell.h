@@ -38,6 +38,7 @@ typedef NS_ENUM(NSUInteger, FSCalendarMonthPosition);
  */
 @property (weak, nonatomic) UIImageView *imageView;
 
+@property (weak, nonatomic) UILabel *noteLabel;
 
 /**
  The collection of event dots of the cell

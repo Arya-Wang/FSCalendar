@@ -47,12 +47,13 @@
 }
 
 - (void)commonInit
-{   
+{
     UILabel *label;
     CAShapeLayer *shapeLayer;
     UIImageView *imageView;
     FSCalendarEventIndicator *eventIndicator;
-    
+    UILabel *notLabel;
+
     label = [[UILabel alloc] initWithFrame:CGRectZero];
     label.textAlignment = NSTextAlignmentCenter;
     label.textColor = [UIColor blackColor];
@@ -83,6 +84,17 @@
     imageView.contentMode = UIViewContentModeBottom|UIViewContentModeCenter;
     [self.contentView addSubview:imageView];
     self.imageView = imageView;
+    
+    notLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+    [self.contentView addSubview:notLabel];
+    notLabel.backgroundColor = [UIColor colorWithRed:204/255.0 green:204/255.0 blue:204/255.0 alpha:1.0];
+    notLabel.textColor = [UIColor colorWithRed:255/255.0 green:255/255.0 blue:255/255.0 alpha:1.0];
+    notLabel.font = [UIFont fontWithName:@"PingFangSC-Medium" size: 8];
+    notLabel.layer.cornerRadius = 6.0;
+    notLabel.layer.masksToBounds = true;
+    notLabel.textAlignment = NSTextAlignmentCenter;
+    [self.contentView insertSubview:notLabel aboveSubview:notLabel];
+    self.noteLabel = notLabel;
     
     self.clipsToBounds = NO;
     self.contentView.clipsToBounds = NO;
@@ -152,6 +164,12 @@
                                        eventSize
                                       );
     
+    
+    
+    _noteLabel.frame =  CGRectMake(diameter,
+                                   (titleHeight-diameter)/2 - 3,
+                                   18,
+                                   12);
 }
 
 - (void)prepareForReuse
