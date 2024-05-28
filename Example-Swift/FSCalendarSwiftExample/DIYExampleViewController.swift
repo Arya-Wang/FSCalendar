@@ -94,7 +94,7 @@ class DIYExampleViewController: UIViewController, FSCalendarDataSource, FSCalend
         let cell = calendar.dequeueReusableCell(withIdentifier: "cell", for: date, at: position)
         return cell
     }
-    
+   
     func calendar(_ calendar: FSCalendar, willDisplay cell: FSCalendarCell, for date: Date, at position: FSCalendarMonthPosition) {
         self.configure(cell: cell, for: date, at: position)
     }
