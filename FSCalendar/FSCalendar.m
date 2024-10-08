@@ -363,7 +363,10 @@ typedef NS_ENUM(NSUInteger, FSCalendarOrientation) {
     if (!self.floatingMode) {
         switch (scope) {
             case FSCalendarScopeMonth: {
-                CGFloat height = weekdayHeight + headerHeight + [self.calculator numberOfRowsInMonth:_currentPage]*rowHeight + paddings;
+                // 这里如果直接用_currentPage去计算当月的时间相关数据，_currentPage有问题
+                NSLog(@"_currentPage%@",_currentPage);
+                NSDate *currentDay = [_currentPage dateByAddingTimeInterval:(60.0 * 60.0 * 24.0 * 7 + 1.0)];
+                CGFloat height = weekdayHeight + headerHeight + [self.calculator numberOfRowsInMonth:currentDay]*rowHeight + paddings;
                 return CGSizeMake(size.width, height);
             }
             case FSCalendarScopeWeek: {
